@@ -1,3 +1,4 @@
+import os
 #CREATE FUNCTION
 def create(default_path):
     file_name = input('File Name: ')
@@ -12,16 +13,26 @@ def create(default_path):
 #EDIT FUNCTION
 def edit():
     path = input('File Path: ')
-    b = int(input("Press...\n- (1) to read a file \n- (2) to write in a file\n"))
-    if b == 1:
-        file = open(path, "r")
-        print(file.read())
-        file.close()
-    elif b == 2:
-        file = open(path, "a")
-        text = input('Write below...\n')
-        file.write(text)
-        file.close()
+    if os.path.exists(path):
+        b = int(input("Press...\n- (1) to read a file \n- (2) to write in a file\n"))
+        if b == 1:
+            file = open(path, "r")
+            print(file.read())
+            file.close()
+        elif b == 2:
+            file = open(path, "a")
+            text = input('Write below...\n')
+            file.write(text)
+            file.close()
+    else:
+        print('File does not exist')
+#DELETE FUNCTION
+def delete_file():
+    path = input('File Path: ')
+    if os.path.exists(path):
+        os.remove(path)
+    else:
+        print('File does not exist')
 #MAIN CONDITION
 if __name__ == '__main__':
     default_path = "C:/Users/Amito/Desktop/File Manager/"
@@ -33,3 +44,5 @@ if __name__ == '__main__':
     if a == 2:
         edit()
     #DELETE
+    if a == 3:
+        delete_file()
